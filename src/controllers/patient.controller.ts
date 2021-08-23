@@ -9,3 +9,12 @@ export const getPatients = async (
   const patients = await getRepository(Patient).find();
   return res.json(patients);
 };
+
+export const createPatient = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const newPatient = getRepository(Patient).create(req.body);
+  const result = await getRepository(Patient).save(newPatient);
+  return res.json(result);
+};

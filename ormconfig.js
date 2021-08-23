@@ -2,7 +2,7 @@
    "type": "mysql",
    "host": process.env.HOST,
    "port": process.env.PORT,
-   "username": process.env.USERNAME,
+   "username": "root",
    "password": process.env.PASSWORD,
    "database": "digital-hospital",
    "entities": ["dist/entities/**/*.js"],
