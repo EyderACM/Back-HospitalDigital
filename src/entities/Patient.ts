@@ -37,6 +37,12 @@ export class Patient extends BaseEntity {
   @Column()
   city_name: string;
 
+  @Column({
+    default: true,
+    name: "active",
+  })
+  is_active: boolean;
+
   @CreateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP(6)",
