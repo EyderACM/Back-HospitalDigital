@@ -6,7 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { IsDate, IsInt, Max, Min } from "class-validator";
+import { IsDate, IsDateString, IsInt, Max, Min } from "class-validator";
 import { Type } from "class-transformer";
 
 @Entity()
@@ -31,7 +31,7 @@ export class Patient extends BaseEntity {
 
   @Column({ type: "date" })
   @Type(() => Date)
-  @IsDate()
+  @IsDateString()
   birth_date: Date;
 
   @Column()

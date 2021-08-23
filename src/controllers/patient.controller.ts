@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { Patient } from "../entities/Patient";
+import { validate } from "class-validator";
 
 export const getPatients = async (
   req: Request,
@@ -24,6 +25,12 @@ export const createPatient = async (
   res: Response
 ): Promise<Response> => {
   const newPatient = getRepository(Patient).create(req.body);
+
+  const errors = await validate(newPatient);
+
+  if (errors.length > 0)
+    return res.status(400).json({ msg: "Please enter valid data", errors });
+
   const result = await getRepository(Patient).save(newPatient);
   return res.json(result);
 };
