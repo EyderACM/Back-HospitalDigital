@@ -40,14 +40,21 @@ export const updatePatient = async (
   res: Response
 ): Promise<Response> => {
   const patientId = req.params.id;
+  const newPatient = getRepository(Patient).create(req.body);
   const patient = await getRepository(Patient).findOne(patientId);
+
+  const errors = await validate(newPatient);
+
+  if (errors.length > 0)
+    return res.status(404).json({ msg: "Please enter valid data", errors });
+
   if (patient) {
     getRepository(Patient).merge(patient, req.body);
     const result = await getRepository(Patient).save(patient);
     return res.json(result);
   }
 
-  return res.status(404).json({ msg: "User not found" });
+  return res.status(404).json({ msg: "Patient not found" });
 };
 
 export const deletePatient = async (
@@ -55,6 +62,11 @@ export const deletePatient = async (
   res: Response
 ): Promise<Response> => {
   const patientId = req.params.id;
-  const result = await getRepository(Patient).delete(patientId);
-  return res.json(result);
+
+  const patient = await getRepository(Patient).findOne(patientId);
+  if (patient) {
+    const result = await getRepository(Patient).delete(patientId);
+    return res.json(result);
+  }
+  return res.status(404).json({ msg: "Patient not found" });
 };
