@@ -27,3 +27,18 @@ export const createPatient = async (
   const result = await getRepository(Patient).save(newPatient);
   return res.json(result);
 };
+
+export const updatePatient = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const patientId = req.params.id;
+  const patient = await getRepository(Patient).findOne(patientId);
+  if (patient) {
+    getRepository(Patient).merge(patient, req.body);
+    const result = await getRepository(Patient).save(patient);
+    return res.json(result);
+  }
+
+  return res.status(404).json({ msg: "User not found" });
+};
