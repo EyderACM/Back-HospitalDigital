@@ -42,3 +42,12 @@ export const updatePatient = async (
 
   return res.status(404).json({ msg: "User not found" });
 };
+
+export const deletePatient = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const patientId = req.params.id;
+  const result = await getRepository(Patient).delete(patientId);
+  return res.json(result);
+};
