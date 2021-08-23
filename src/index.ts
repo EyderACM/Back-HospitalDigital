@@ -1,10 +1,16 @@
+import "reflect-metadata";
+
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import { createConnection } from "typeorm";
 
 import patientRoutes from "./routes/patient.routes";
 
+require("dotenv").config();
+
 const app = express();
+createConnection();
 
 // middlewares
 app.use(cors());
