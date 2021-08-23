@@ -10,6 +10,15 @@ export const getPatients = async (
   return res.json(patients);
 };
 
+export const getPatient = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const patientId = req.params.id;
+  const result = await getRepository(Patient).findOne(patientId);
+  return res.json(result);
+};
+
 export const createPatient = async (
   req: Request,
   res: Response
