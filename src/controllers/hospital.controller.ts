@@ -68,7 +68,7 @@ export const updateHospital = async (
       const result = await getRepository(Hospital).save(hospital);
       return res.status(200).json(result);
     }
-    return res.status(404).json({ msg: "Patient not found" });
+    return res.status(404).json({ msg: "Hospital not found" });
   } catch (error) {
     return res.status(500).json({ msg: "Unexpected DB error", error });
   }
@@ -86,7 +86,7 @@ export const deleteHospital = async (
       const result = await getRepository(Hospital).delete(hospitalId);
       return res.status(200).json(result);
     }
-    return res.status(404).json({ msg: "Patient not found" });
+    return res.status(404).json({ msg: "Hospital not found" });
   } catch (error) {
     return res.status(500).json({ msg: "Unexpected DB error", error });
   }
