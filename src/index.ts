@@ -6,6 +6,7 @@ import cors from "cors";
 import { createConnection } from "typeorm";
 
 import patientRoutes from "./routes/patient.routes";
+import hospitalRoutes from "./routes/hospital.routes";
 
 require("dotenv").config();
 
@@ -19,6 +20,7 @@ app.use(express.json());
 
 // routes
 app.use(patientRoutes);
+app.use(hospitalRoutes);
 
 app.listen(3000);
 console.log("Server on port", 3000);
