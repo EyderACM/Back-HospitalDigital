@@ -5,8 +5,10 @@ import {
   BaseEntity,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
 import { IsDefined } from "class-validator";
+import { Patient } from "./Patient";
 
 @Entity()
 export class Hospital extends BaseEntity {
@@ -16,6 +18,9 @@ export class Hospital extends BaseEntity {
   @Column()
   @IsDefined()
   name: string;
+
+  @OneToMany(() => Patient, (patient) => patient.hospital)
+  patients: Patient[];
 
   @CreateDateColumn({
     type: "timestamp",

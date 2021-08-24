@@ -5,9 +5,19 @@ import {
   BaseEntity,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm";
-import { IsDateString, IsDefined, IsInt, Max, Min } from "class-validator";
+import {
+  IsDateString,
+  isDefined,
+  IsDefined,
+  IsInt,
+  Max,
+  Min,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { Hospital } from "./Hospital";
 
 @Entity()
 export class Patient extends BaseEntity {
@@ -42,6 +52,13 @@ export class Patient extends BaseEntity {
   @Column()
   @IsDefined()
   city_name: string;
+
+  @ManyToOne(() => Hospital, (hospital) => hospital.patients)
+  @IsDefined()
+  @JoinColumn({
+    name: "hospital_id",
+  })
+  hospital: Hospital;
 
   @Column({
     default: true,
