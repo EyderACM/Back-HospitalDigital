@@ -6,7 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { IsDateString, IsInt, Max, Min } from "class-validator";
+import { IsDateString, IsDefined, IsInt, Max, Min } from "class-validator";
 import { Type } from "class-transformer";
 
 @Entity()
@@ -15,26 +15,32 @@ export class Patient extends BaseEntity {
   id: number;
 
   @Column()
+  @IsDefined()
   first_name: string;
 
   @Column()
+  @IsDefined()
   last_name: string;
 
   @Column()
+  @IsDefined()
   @IsInt()
   @Min(0)
   @Max(100)
   age: number;
 
   @Column()
+  @IsDefined()
   sex: string;
 
   @Column({ type: "date" })
   @Type(() => Date)
   @IsDateString()
+  @IsDefined()
   birth_date: Date;
 
   @Column()
+  @IsDefined()
   city_name: string;
 
   @Column({
