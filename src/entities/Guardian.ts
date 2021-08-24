@@ -1,3 +1,4 @@
+import { IsDefined } from "class-validator";
 import {
   Entity,
   Column,
@@ -13,12 +14,15 @@ export class Guardian extends BaseEntity {
   id: number;
 
   @Column()
+  @IsDefined()
   first_name: string;
 
   @Column()
+  @IsDefined()
   last_name: string;
 
   @Column()
+  @IsDefined()
   phone: string;
 
   @CreateDateColumn({
