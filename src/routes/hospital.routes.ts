@@ -14,3 +14,5 @@ router.post("/hospitals", createHospital);
 router.get("/hospitals/:id", getHospital);
 router.put("/hospitals/:id", updateHospital);
 router.delete("/hospitals/:id", deleteHospital);
+
+export default router;
