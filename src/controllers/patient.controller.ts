@@ -22,7 +22,9 @@ export const getPatient = async (
   try {
     const patientId = req.params.id;
     const result = await getRepository(Patient).findOne(patientId);
-    return res.status(200).json(result);
+    return result
+      ? res.status(200).json(result)
+      : res.status(404).json({ msg: "Patient not found" });
   } catch (error) {
     return res.status(500).json({ msg: "Unexpected DB error", error });
   }
