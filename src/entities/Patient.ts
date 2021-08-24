@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToOne,
 } from "typeorm";
 import {
   IsDateString,
@@ -18,6 +19,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Hospital } from "./Hospital";
+import { Guardian } from "./Guardian";
 
 @Entity()
 export class Patient extends BaseEntity {
@@ -59,6 +61,13 @@ export class Patient extends BaseEntity {
     name: "hospital_id",
   })
   hospital: Hospital;
+
+  @OneToOne(() => Guardian)
+  @IsDefined()
+  @JoinColumn({
+    name: "guardian_id",
+  })
+  guardian: Guardian;
 
   @Column({
     default: true,

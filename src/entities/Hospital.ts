@@ -19,7 +19,9 @@ export class Hospital extends BaseEntity {
   @IsDefined()
   name: string;
 
-  @OneToMany(() => Patient, (patient) => patient.hospital)
+  @OneToMany(() => Patient, (patient) => patient.hospital, {
+    cascade: ["insert", "update"],
+  })
   patients: Patient[];
 
   @CreateDateColumn({
