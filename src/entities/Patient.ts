@@ -5,9 +5,21 @@ import {
   BaseEntity,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToOne,
 } from "typeorm";
-import { IsDateString, IsDefined, IsInt, Max, Min } from "class-validator";
+import {
+  IsDateString,
+  isDefined,
+  IsDefined,
+  IsInt,
+  Max,
+  Min,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { Hospital } from "./Hospital";
+import { Guardian } from "./Guardian";
 
 @Entity()
 export class Patient extends BaseEntity {
@@ -42,6 +54,20 @@ export class Patient extends BaseEntity {
   @Column()
   @IsDefined()
   city_name: string;
+
+  @ManyToOne(() => Hospital, (hospital) => hospital.patients)
+  @IsDefined()
+  @JoinColumn({
+    name: "hospital_id",
+  })
+  hospital: Hospital;
+
+  @OneToOne(() => Guardian)
+  @IsDefined()
+  @JoinColumn({
+    name: "guardian_id",
+  })
+  guardian: Guardian;
 
   @Column({
     default: true,
