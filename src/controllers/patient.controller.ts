@@ -23,7 +23,9 @@ export const getPatient = async (
 ): Promise<Response> => {
   try {
     const patientId = req.params.id;
-    const result = await getRepository(Patient).findOne(patientId);
+    const result = await getRepository(Patient).findOne(patientId, {
+      relations: ["guardian", "hospital"],
+    });
     return result
       ? res.status(200).json(result)
       : res.status(404).json({ msg: "Patient not found" });
