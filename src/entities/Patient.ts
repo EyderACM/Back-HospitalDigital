@@ -62,7 +62,7 @@ export class Patient extends BaseEntity {
   })
   hospital: Hospital;
 
-  @OneToOne(() => Guardian)
+  @OneToOne(() => Guardian, { cascade: true })
   @IsDefined()
   @JoinColumn({
     name: "guardian_id",
