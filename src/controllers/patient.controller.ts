@@ -8,7 +8,9 @@ export const getPatients = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const patients = await getRepository(Patient).find();
+    const patients = await getRepository(Patient).find({
+      relations: ["guardian", "hospital"],
+    });
     return res.status(200).json(patients);
   } catch (error) {
     return res.status(500).json({ msg: "Unexpected DB error", error });
