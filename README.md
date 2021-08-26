@@ -10,6 +10,10 @@ Repositorio de actividad de Back-end, simulando un hospital digital con ingreso 
 >Es necesario contar con Node.JS
 >En caso de ser necesario, revisar el archivo `ormconfig.js` para ajustar los datos del `username`.
 
+Ejemplo de resultado esperado:
+
+![image](https://github.com/EyderACM/Back-HospitalDigital/blob/develop/images/esperado.png)
+
 ### Características del Back-end
 - Cuenta con uso de Postman para la documentación de las rutas, las cuales se pueden encontrar en el siguiente [enlace](https://github.com/EyderACM/Back-HospitalDigital/blob/develop/resources/Digital-Hospital.postman_collection.json), las cuales se pueden 
 observar de la siguiente forma:
@@ -18,4 +22,9 @@ observar de la siguiente forma:
 
 - Se hace uso de TypeORM para la creación de entidades.
 - Se realizaron diagramas para la planeación de las entidades, las cuales pueden verse ilustradas de la siguiente forma:
+
 ![image](https://github.com/EyderACM/Back-HospitalDigital/blob/develop/images/image.png)
+
+- Se hizo uso de Trello para la gestión y organización de tareas
+
+![image](https://github.com/EyderACM/Back-HospitalDigital/blob/develop/images/trello.png)
