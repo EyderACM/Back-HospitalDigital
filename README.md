@@ -25,6 +25,6 @@ observar de la siguiente forma:
 
 ![image](https://github.com/EyderACM/Back-HospitalDigital/blob/develop/images/image.png)
 
-- Se hizo uso de Trello para la gestión y organización de tareas
+- Se utlizó Trello para la gestión y organización de tareas
 
 ![image](https://github.com/EyderACM/Back-HospitalDigital/blob/develop/images/trello.png)
