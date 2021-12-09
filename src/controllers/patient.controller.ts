@@ -22,6 +22,7 @@ export const getPatient = async (
   res: Response
 ): Promise<Response> => {
   try {
+    console.log(req.params.id);
     const patientId = req.params.id;
     const result = await getRepository(Patient).findOne(patientId, {
       relations: ["guardian", "hospital"],
