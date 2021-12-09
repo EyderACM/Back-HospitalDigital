@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { getRepository } from "typeorm";
-import { Patient } from "../entities/Patient";
-import { validate } from "class-validator";
+import { Request, Response } from 'express';
+import { getRepository } from 'typeorm';
+import { Patient } from '../entities/Patient';
+import { validate } from 'class-validator';
 
 export const getPatients = async (
   req: Request,
@@ -9,11 +9,11 @@ export const getPatients = async (
 ): Promise<Response> => {
   try {
     const patients = await getRepository(Patient).find({
-      relations: ["guardian", "hospital"],
+      relations: ['guardian', 'hospital'],
     });
     return res.status(200).json(patients);
   } catch (error) {
-    return res.status(500).json({ msg: "Unexpected DB error", error });
+    return res.status(500).json({ msg: 'Unexpected DB error', error });
   }
 };
 
@@ -25,13 +25,13 @@ export const getPatient = async (
     console.log(req.params.id);
     const patientId = req.params.id;
     const result = await getRepository(Patient).findOne(patientId, {
-      relations: ["guardian", "hospital"],
+      relations: ['guardian', 'hospital'],
     });
     return result
       ? res.status(200).json(result)
-      : res.status(404).json({ msg: "Patient not found" });
+      : res.status(404).json({ msg: 'Patient not found' });
   } catch (error) {
-    return res.status(500).json({ msg: "Unexpected DB error", error });
+    return res.status(500).json({ msg: 'Unexpected DB error', error });
   }
 };
 
@@ -45,12 +45,12 @@ export const createPatient = async (
     const errors = await validate(newPatient);
 
     if (errors.length > 0)
-      return res.status(400).json({ msg: "Please enter valid data", errors });
+      return res.status(400).json({ msg: 'Please enter valid data', errors });
 
     const result = await getRepository(Patient).save(newPatient);
     return res.status(200).json(result);
   } catch (error) {
-    return res.status(500).json({ msg: "Unexpected DB error", error });
+    return res.status(500).json({ msg: 'Unexpected DB error', error });
   }
 };
 
@@ -66,16 +66,16 @@ export const updatePatient = async (
     const errors = await validate(newPatient);
 
     if (errors.length > 0)
-      return res.status(400).json({ msg: "Please enter valid data", errors });
+      return res.status(400).json({ msg: 'Please enter valid data', errors });
 
     if (patient) {
       getRepository(Patient).merge(patient, req.body);
       const result = await getRepository(Patient).save(patient);
       return res.status(200).json(result);
     }
-    return res.status(404).json({ msg: "Patient not found" });
+    return res.status(404).json({ msg: 'Patient not found' });
   } catch (error) {
-    return res.status(500).json({ msg: "Unexpected DB error", error });
+    return res.status(500).json({ msg: 'Unexpected DB error', error });
   }
 };
 
@@ -91,8 +91,30 @@ export const deletePatient = async (
       const result = await getRepository(Patient).delete(patientId);
       return res.status(200).json(result);
     }
-    return res.status(404).json({ msg: "Patient not found" });
+    return res.status(404).json({ msg: 'Patient not found' });
   } catch (error) {
-    return res.status(500).json({ msg: "Unexpected DB error", error });
+    return res.status(500).json({ msg: 'Unexpected DB error', error });
   }
 };
+
+//@fetchORM from utils
+export const hospitalFetch = (req: ControllerRequest) => {
+  if (req.method === 'GET') {
+    return [getPatient, getPatients];
+  }
+  if (req.method === 'POST') {
+    return createPatient;
+  }
+  if (req.method === 'PUT') {
+    return updatePatient;
+  }
+  if (req.method === 'DELETE') {
+    return deletePatient;
+  }
+};
+
+interface ControllerRequest {
+  method: string;
+  body?: string;
+  endpoint: string;
+}
